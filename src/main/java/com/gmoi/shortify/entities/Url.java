@@ -16,6 +16,7 @@ public class Url {
     @Id
     private String shortUrl;
     private String originalUrl;
+    private long clickCount;
     @Version
     private long version;
     @CreatedDate
