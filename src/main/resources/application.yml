@@ -1,0 +1,16 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: shortify
+      username: root
+      password: pass
+      authentication-database: admin
+      auto-index-creation: true
+
+shortify:
+  url:
+    short-length: 10
+    hash-salt: "EKWEJLERDIWJLJIMCVOEOEIOGNIOWOPKDFWOMWINF"
+    short-max-attempts: 10
