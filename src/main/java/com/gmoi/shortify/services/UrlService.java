@@ -3,6 +3,9 @@ package com.gmoi.shortify.services;
 import com.gmoi.shortify.entities.ShortenUrlRequest;
 import com.gmoi.shortify.entities.ShortenUrlResponse;
 import com.gmoi.shortify.entities.Url;
+import com.gmoi.shortify.exceptions.UrlMalformedException;
+import com.gmoi.shortify.exceptions.UrlMissingException;
+import com.gmoi.shortify.exceptions.UrlNotFoundException;
 import com.gmoi.shortify.repositories.UrlRepository;
 import com.gmoi.shortify.util.UrlIdentifierGenerator;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +25,11 @@ public class UrlService {
     public ShortenUrlResponse shortenUrl(ShortenUrlRequest request) {
 
         if (request == null || !StringUtils.hasText(request.getOriginalUrl()))
-            throw new IllegalStateException("Original url is missing");
+            throw new UrlMissingException();
 
         UrlValidator urlValidator = new UrlValidator();
         if (!urlValidator.isValid(request.getOriginalUrl()))
-            throw new IllegalStateException("Original url is invalid");
+            throw new UrlMalformedException();
 
         Url url = Url.builder()
                 .shortUrl(urlIdentifierGenerator.generate())
@@ -43,12 +46,9 @@ public class UrlService {
     }
 
     public String fetchOriginal(String shortUrl) {
-
-        Url url = Optional.of(urlRepository.findById(shortUrl)).get().orElseThrow(
-                () -> new RuntimeException("Could not find url with shortUrl: " + shortUrl)
-        );
+        Url url = Optional.of(urlRepository.findById(shortUrl)).get()
+                .orElseThrow(UrlNotFoundException::new);
 
         return url.getOriginalUrl();
     }
-
 }
