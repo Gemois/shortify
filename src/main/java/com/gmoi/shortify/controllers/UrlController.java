@@ -1,5 +1,6 @@
 package com.gmoi.shortify.controllers;
 
+import com.gmoi.shortify.entities.ShortenUrlCountResponse;
 import com.gmoi.shortify.entities.ShortenUrlRequest;
 import com.gmoi.shortify.entities.ShortenUrlResponse;
 import com.gmoi.shortify.services.UrlService;
@@ -25,5 +26,10 @@ public class UrlController {
     @GetMapping("/{shortUrl}")
     private RedirectView redirect(@PathVariable String shortUrl) {
         return new RedirectView(urlService.fetchOriginal(shortUrl));
+    }
+
+    @GetMapping("/{shortUrl}/count")
+    private ResponseEntity<ShortenUrlCountResponse> getClickCount(@PathVariable String shortUrl) {
+        return ResponseEntity.ok(urlService.getClickCount(shortUrl));
     }
 }
