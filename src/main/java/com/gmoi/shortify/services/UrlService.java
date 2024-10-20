@@ -7,6 +7,7 @@ import com.gmoi.shortify.entities.Url;
 import com.gmoi.shortify.exceptions.UrlMalformedException;
 import com.gmoi.shortify.exceptions.UrlMissingException;
 import com.gmoi.shortify.exceptions.UrlNotFoundException;
+import com.gmoi.shortify.properties.UrlProperties;
 import com.gmoi.shortify.repositories.UrlRepository;
 import com.gmoi.shortify.util.UrlClickCounter;
 import com.gmoi.shortify.util.UrlIdentifierGenerator;
@@ -15,6 +16,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -24,6 +26,7 @@ public class UrlService {
     private final UrlRepository urlRepository;
     private final UrlIdentifierGenerator urlIdentifierGenerator;
     private final UrlClickCounter urlClickCounter;
+    private final UrlProperties urlProperties;
 
     public ShortenUrlResponse shortenUrl(ShortenUrlRequest request) {
 
@@ -34,9 +37,12 @@ public class UrlService {
         if (!urlValidator.isValid(request.getOriginalUrl()))
             throw new UrlMalformedException();
 
+        LocalDateTime expirationDate = LocalDateTime.now().plusDays(urlProperties.getShortUrl().getExpirationDays());
+
         Url url = Url.builder()
                 .shortUrl(urlIdentifierGenerator.generate())
                 .originalUrl(request.getOriginalUrl())
+                .expirationDate(expirationDate)
                 .build();
 
         Url saved = urlRepository.insert(url);
