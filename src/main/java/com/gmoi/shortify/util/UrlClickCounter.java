@@ -5,6 +5,8 @@ import com.gmoi.shortify.repositories.UrlRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @AllArgsConstructor
 public class UrlClickCounter {
@@ -13,6 +15,7 @@ public class UrlClickCounter {
 
     public void increment(Url url) {
         url.setClickCount(url.getClickCount() + 1);
+        url.setLastClickAt(LocalDateTime.now());
         urlRepository.save(url);
     }
 }

@@ -16,13 +16,13 @@ public class UrlIdentifierGenerator {
     private Hashids hashids;
     private Hashids getHashids() {
         if (hashids == null) {
-            hashids = new Hashids(urlProperties.getHashSalt(), urlProperties.getShortLength());
+            hashids = new Hashids(urlProperties.getShortUrl().getHashSalt(), urlProperties.getShortUrl().getLength());
         }
         return hashids;
     }
 
     public String generate() {
-        int maxAttempts = urlProperties.getShortMaxAttempts();
+        int maxAttempts = urlProperties.getShortUrl().getMaxAttempts();
         int attempt = 0;
         String shortUrl;
 

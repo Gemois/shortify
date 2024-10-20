@@ -8,7 +8,22 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "shortify.url")
 public class UrlProperties {
-    private int shortLength;
-    private String hashSalt;
-    private int shortMaxAttempts;
+
+    private ShortUrl shortUrl = new ShortUrl();
+    private Scheduler scheduler = new Scheduler();
+
+    @Data
+    public static class ShortUrl {
+        private int length;
+        private String hashSalt;
+        private int maxAttempts;
+        private int expirationDays;
+        private int inactiveDays;
+    }
+
+    @Data
+    public static class Scheduler {
+        private int threadPoolSize;
+        private int cleanupRate;
+    }
 }

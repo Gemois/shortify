@@ -11,6 +11,12 @@ spring:
 
 shortify:
   url:
-    short-length: 10
-    hash-salt: "EKWEJLERDIWJLJIMCVOEOEIOGNIOWOPKDFWOMWINF"
-    short-max-attempts: 10
+    short-url:
+      length: 10
+      hash-salt: "EKWEJLERDIWJLJIMCVOEOEIOGNIOWOPKDFWOMWINF"
+      max-attempts: 10
+      expiration-days: 360
+      inactive-days: 90
+    scheduler:
+      thread-pool-size: 5
+      cleanup-rate: 1800000
