@@ -1,52 +1,39 @@
 package com.gmoi.shortify.exceptions;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.time.LocalDateTime;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(UrlNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleUrlNotFoundException(UrlNotFoundException e) {
-        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.NOT_FOUND.value())
-                .error(e.getMessage())
-                .build();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+    public ModelAndView handleUrlNotFoundException(UrlNotFoundException e, Model model) {
+        model.addAttribute("status", HttpStatus.NOT_FOUND.value());
+        model.addAttribute("error", e.getMessage());
+        return new ModelAndView("/errors/not-found");
     }
 
     @ExceptionHandler(UrlMissingException.class)
-    public ResponseEntity<ExceptionResponse> handleUrlMissingException(UrlMissingException e) {
-        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(e.getMessage())
-                .build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
+    public ModelAndView handleUrlMissingException(UrlMissingException e, Model model) {
+        model.addAttribute("status", HttpStatus.BAD_REQUEST.value());
+        model.addAttribute("error", e.getMessage());
+        return new ModelAndView("index");
     }
 
     @ExceptionHandler(UrlMalformedException.class)
-    public ResponseEntity<ExceptionResponse> handleUrlMalformedException(UrlMalformedException e) {
-        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(e.getMessage())
-                .build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
+    public ModelAndView handleUrlMalformedException(UrlMalformedException e, Model model) {
+        model.addAttribute("status", HttpStatus.BAD_REQUEST.value());
+        model.addAttribute("error", e.getMessage());
+        return new ModelAndView("index");
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> handleGenericException(Exception e) {
-        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                .build();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
+    public ModelAndView handleGenericException(Model model) {
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("error", "An unexpected error occurred.");
+        return new ModelAndView("/errors/internal-server-error");
     }
 }

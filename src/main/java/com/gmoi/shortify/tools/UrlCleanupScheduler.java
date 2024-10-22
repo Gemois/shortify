@@ -1,4 +1,4 @@
-package com.gmoi.shortify.util;
+package com.gmoi.shortify.tools;
 
 import com.gmoi.shortify.entities.Url;
 import com.gmoi.shortify.properties.UrlProperties;
@@ -19,7 +19,7 @@ public class UrlCleanupScheduler {
     private final UrlRepository urlRepository;
     private final UrlProperties urlProperties;
 
-    @Scheduled(fixedRateString = "${shortify.url.scheduler.cleanup-rate}")
+    @Scheduled(fixedRateString = "${shortify.scheduler.cleanup-rate}")
     public void cleanupUrls() {
         log.info("{} - Cleanup task started", Thread.currentThread().getName());
 
@@ -27,7 +27,7 @@ public class UrlCleanupScheduler {
         LocalDateTime inactiveThreshold = now.minusDays(urlProperties.getShortUrl().getInactiveDays());
 
         List<Url> expiredUrls = urlRepository.findByExpirationDateBefore(now);
-        List<Url> inactiveUrls = urlRepository.findByLastClickAtBefore(inactiveThreshold);
+        List<Url> inactiveUrls = urlRepository.findByLastClickDateBefore(inactiveThreshold);
 
         expiredUrls.addAll(inactiveUrls);
 

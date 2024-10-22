@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortened URL</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<div th:replace="~{fragments/navbar :: nav}"></div>
+
+<div class="container flex-grow-1 d-flex flex-column justify-content-center mt-5">
+    <h1 class="font-weight-bold text-primary mb-4">Your URL is Shortened!</h1>
+    <div class="alert alert-success">
+        <p><strong>Short URL:</strong></p>
+        <input type="text" class="form-control mb-3" th:value="${shortUrl}" readonly>
+        <p><strong>Long URL:</strong>
+            <a th:href="${longUrl}" th:text="${longUrl}" target="_blank" rel="noopener noreferrer"></a>
+        </p>
+    </div>
+    <a th:href="@{/}" class="btn btn-primary mb-4">Shorten another URL</a>
+    <a th:href="@{/track/{shortUrl}(shortUrl=${shortUrlId})}" class="btn btn-primary mb-4">Track your URL</a>
+
+
+    <BR>
+
+    <h4 class="font-weight-bold text-primary mb-3">Share Your Shortened URL</h4>
+    <div class="d-flex justify-content-center">
+        <a th:href="@{https://www.facebook.com/sharer/sharer.php?u=${shortUrl}}" target="_blank"
+           class="btn btn-outline-primary mr-2">
+            <i class="fab fa-facebook-f"></i> Share on Facebook
+        </a>
+        <a th:href="@{https://twitter.com/intent/tweet?url=${shortUrl}}" target="_blank"
+           class="btn btn-outline-info mr-2">
+            <i class="fab fa-twitter"></i> Share on Twitter
+        </a>
+        <a th:href="@{https://www.linkedin.com/shareArticle?mini=true&url=${shortUrl}}" target="_blank"
+           class="btn btn-outline-secondary mr-2">
+            <i class="fab fa-linkedin-in"></i> Share on LinkedIn
+        </a>
+        <a th:href="@{https://wa.me/?text=${shortUrl}}" target="_blank" class="btn btn-outline-success mr-2">
+            <i class="fab fa-whatsapp"></i> Share on WhatsApp
+        </a>
+        <a th:href="@{https://www.reddit.com/submit?url=${shortUrl}}" target="_blank"
+           class="btn btn-outline-danger mr-2">
+            <i class="fab fa-reddit"></i> Share on Reddit
+        </a>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

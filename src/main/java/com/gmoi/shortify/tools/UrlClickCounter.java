@@ -1,4 +1,4 @@
-package com.gmoi.shortify.util;
+package com.gmoi.shortify.tools;
 
 import com.gmoi.shortify.entities.Url;
 import com.gmoi.shortify.repositories.UrlRepository;
@@ -15,7 +15,7 @@ public class UrlClickCounter {
 
     public void increment(Url url) {
         url.setClickCount(url.getClickCount() + 1);
-        url.setLastClickAt(LocalDateTime.now());
+        url.setLastClickDate(LocalDateTime.now());
         urlRepository.save(url);
     }
 }

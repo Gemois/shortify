@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface UrlRepository extends MongoRepository<Url, String> {
     List<Url> findByExpirationDateBefore(LocalDateTime now);
-    List<Url> findByLastClickAtBefore(LocalDateTime date);
+
+    List<Url> findByLastClickDateBefore(LocalDateTime date);
 }
