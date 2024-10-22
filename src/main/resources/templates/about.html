@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<div th:replace="~{fragments/navbar :: nav}"></div>
+
+<div class="container mt-5 flex-grow-1">
+    <h1 class="font-weight-bold text-primary mb-4 text-center">About</h1>
+
+    <section class="mb-5">
+        <h2 class="font-weight-bold text-secondary">What is Shortify?</h2>
+        <p class="lead">Shortify is a URL shortening service designed to make long and complex web links manageable and
+            easy to share.
+            Simply paste a long URL into the input box, and Shortify will generate a shorter version that can be easily
+            copied and shared.
+            Additionally, users can track the total number of clicks the shortened URL has received, along with other
+            details such as the time of the last click.</p>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="font-weight-bold text-secondary">Technologies Used</h2>
+        <ul class="list-group">
+            <li class="list-group-item">Java Spring Boot - For backend development and URL processing.</li>
+            <li class="list-group-item">MongoDB - For storing URL data.</li>
+            <li class="list-group-item">Thymeleaf - For rendering dynamic HTML pages.</li>
+            <li class="list-group-item">Bootstrap 4 - For responsive design and user interface components.</li>
+            <li class="list-group-item">JavaScript - For handling dynamic form submission and frontend logic.</li>
+        </ul>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="font-weight-bold text-secondary">Find me on</h2>
+        <div class="mt-4">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="https://www.linkedin.com/in/georgiosmoisidis/" class="btn btn-outline-primary"
+                       target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://github.com/Gemois/" class="btn btn-outline-dark" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="https://gmoisidis.gr/" class="btn btn-outline-info" target="_blank">
+                        <i class="fas fa-globe"></i> gmoisidis.gr
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

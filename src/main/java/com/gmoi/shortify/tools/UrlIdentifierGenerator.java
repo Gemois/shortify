@@ -1,4 +1,4 @@
-package com.gmoi.shortify.util;
+package com.gmoi.shortify.tools;
 
 import com.gmoi.shortify.properties.UrlProperties;
 import com.gmoi.shortify.repositories.UrlRepository;

@@ -8,15 +8,19 @@ spring:
       password: pass
       authentication-database: admin
       auto-index-creation: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false
 
 shortify:
-  url:
-    short-url:
-      length: 10
-      hash-salt: "EKWEJLERDIWJLJIMCVOEOEIOGNIOWOPKDFWOMWINF"
-      max-attempts: 10
-      expiration-days: 360
-      inactive-days: 90
-    scheduler:
-      thread-pool-size: 5
-      cleanup-rate: 1800000
+  short-url:
+    length: 10
+    hash-salt: 39357235fb2579f9d8ebecf979f906f0
+    max-attempts: 10
+    expiration-days: 360
+    inactive-days: 90
+  scheduler:
+    thread-pool-size: 5
+    cleanup-rate: 1800000

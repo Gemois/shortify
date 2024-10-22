@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Server Error</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<div th:replace="~{fragments/navbar :: nav}"></div>
+
+<section class="container text-center flex-grow-1 d-flex flex-column justify-content-center">
+    <div class="display-1 text-danger font-weight-bold">
+        <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div class="h4 text-muted">Internal Server Error</div>
+    <p>Something went wrong while processing your request.</p>
+    <a href="/" class="btn btn-primary btn-lg">Go to Home</a>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

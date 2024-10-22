@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "shortify.url")
+@ConfigurationProperties(prefix = "shortify")
 public class UrlProperties {
 
     private ShortUrl shortUrl = new ShortUrl();

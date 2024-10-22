@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortify - Shorten Your URL</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<div th:replace="~{fragments/navbar :: nav}"></div>
+
+<div class="container flex-grow-1 d-flex flex-column justify-content-center mt-5">
+    <h1 class="font-weight-bold text-primary mb-4">Shorten Your URL</h1>
+    <form th:action="@{/shorten}" method="post" class="w-100">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="longUrl" placeholder="Enter long URL" required/>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Shorten URL</button>
+            </div>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${status}">
+            <span th:text="${error}"></span>
+        </div>
+    </form>
+    <p class="text-muted">Paste your long URL above to get a shorter version!</p>
+</div>
+
+<div class="container flex-grow-1 d-flex flex-row justify-content-center mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-link fa-3x mb-3 text-primary"></i>
+                <h5 class="card-title">Shorten URLs</h5>
+                <p class="card-text">Easily shorten long URLs with a simple click.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-chart-bar fa-3x mb-3 text-primary"></i>
+                <h5 class="card-title">Track Clicks</h5>
+                <p class="card-text">Monitor the number of clicks on your shortened URLs.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

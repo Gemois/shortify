@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 public class Url {
     @Id
     private String shortUrl;
-    private String originalUrl;
+    private String longUrl;
     private long clickCount;
-    private LocalDateTime lastClickAt;
+    private LocalDateTime lastClickDate;
     private LocalDateTime expirationDate;
     @Version
     private long version;
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
 }

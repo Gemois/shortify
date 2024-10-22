@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Click Count</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function updateFormAction() {
+            const shortUrlInput = document.getElementById("shortUrlInput").value;
+            const form = document.getElementById("trackForm");
+            const shortUrlId = extractShortUrlId(shortUrlInput);
+            form.action = "/track/" + shortUrlId;
+        }
+
+        function extractShortUrlId(input) {
+            try {
+                const url = new URL(input);
+                return url.pathname.split('/').pop();
+            } catch (e) {
+                return input;
+            }
+        }
+    </script>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<div th:replace="~{fragments/navbar :: nav}"></div>
+
+<div class="container text-center flex-grow-1 d-flex flex-column justify-content-center mt-5">
+    <h1 class="font-weight-bold text-primary mb-4">Track URL</h1>
+
+    <div>
+        <form id="trackForm" method="get" class="mb-4" onsubmit="updateFormAction()">
+            <div class="input-group">
+                <input type="text" id="shortUrlInput" class="form-control" th:value="${shortUrl}"
+                       placeholder="Paste short URL" required>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Track</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div th:if="${shortUrl == null}" >
+    <h4 class="font-weight-bold text-primary mb-3">Why Track Your URL?</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-chart-line"></i> Click Count</h5>
+                    <p class="card-text">Monitor how many clicks your shortened link has received.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-clock"></i> Last Click</h5>
+                    <p class="card-text">Find out the most recent time someone clicked your link.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-calendar-alt"></i> Expiration & Activity</h5>
+                    <p class="card-text">Check when your URL expires and its recent activity status.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div th:if="${shortUrl != null}" class="card border-success mb-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">URL Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row text-left">
+                <div class="col-md-6">
+                    <p>
+                        <i class="fas fa-link"></i> <strong>Long URL:</strong>
+                        <a th:href="${longUrl}" th:text="${longUrl}" target="_blank" rel="noopener noreferrer"></a>
+                    </p>
+                    <p>
+                        <i class="fas fa-calendar-alt"></i> <strong>Created Date:</strong>
+                        <span th:text="${createdDate}"></span>
+                    </p>
+                </div>
+                <div class="col-md-6 ">
+                    <p>
+                        <i class="fas fa-chart-bar"></i> <strong>Total Clicks:</strong>
+                        <span th:text="${clickCount}"></span>
+                    </p>
+                    <p>
+                        <i class="fas fa-clock"></i> <strong>Last Click:</strong>
+                        <span th:text="${lastClickDate}"></span>
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-3 text-left">
+                <div class="col-md-6">
+                    <p>
+                        <i class="fas fa-hourglass-half"></i> <strong>Inactive Days:</strong>
+                        <span th:text="${inactiveDays}"></span>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <i class="fas fa-calendar-times"></i> <strong>Expiration Date:</strong>
+                        <span th:text="${expirationDate}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a th:if="${shortUrl != null}" th:href="@{/}" class="btn btn-primary mb-4">Shorten another URL</a>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
