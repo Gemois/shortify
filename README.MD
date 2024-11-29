@@ -1,8 +1,8 @@
-# Sortify
+# Shortify
 
 ## Overview
 
-Sortify allows users to convert long URLs into shorter, more manageable links. It provides features such as tracking the
+Shortify allows users to convert long URLs into shorter, more manageable links. It provides features such as tracking the
 number of clicks on the shortened URL, viewing the last click date, and checking the expiration status of the URL. This
 application aims to simplify the sharing of links and enhance the user's ability to monitor link performance.
 
